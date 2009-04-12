@@ -1,0 +1,28 @@
+StiExtension
+============
+
+This plugin is not yet ready for general use!
+
+Let's say you want to use STI, but you don't so much like the "single" part. It feels a little clunky to add every possible field for all of the subclasses into one table. This plugin allows you to normalize your database without losing the ease of Rails' STI implementation. Simply add the method call to an ActiveRecord model, passing the method the name of another ActiveRecord model and voila! The plugin uses delegation, an after_save callback, and (an unfortunate hijacking of) the initialize method to make it appear to the developer that the 2 models are, in practice, one. This makes it possible for forms and new and create calls to treat the submodel's fields as though they were a part of the STI model.
+
+StiModel.new(:model_field1 => "something", :model_field2 => "something_else", :submodel_field1 => "something_else_again")
+
+
+Example
+=======
+
+class Yadda < ActiveRecord::Base
+
+  is_extended_by YaddaYadda
+
+end
+
+ToDo
+====
+
+Tests!
+Implement the after_save callback
+Add support for polymorphic submodels
+Find an alternative to completely hijacking the initialize method
+
+Copyright (c) 2009 James Moline, released under the MIT license
